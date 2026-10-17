@@ -1,0 +1,403 @@
+{
+  "project": "Mind2Act",
+  "benchmark": "Mind2Act World",
+  "model": "Mind2Act Harness",
+  "subtitle": "Contract-Guided Coordination of Cognitive and Reactive Agents for Robotic Manipulation",
+  "status": "proposal",
+  "proposal_version": 2,
+  "updated_at": "2026-09-24",
+  "baseline_commit": "6d3c53eab6adcdfc7b7c4fdda7c9dba5d4fcce41",
+  "upstream": {
+    "name": "GPT-6 Astra",
+    "api_model_id": null
+  },
+  "downstream": {
+    "name": "Jev",
+    "version": null
+  },
+  "results": null,
+  "development_evidence": {
+    "path": "data/research/case7_development_evidence_20260924.json",
+    "sha256": "d56aef3ba7eaf52db73dc4b0345eb9dffae918142de240a2c5e183604da6805a",
+    "scope": "Historical external Case7 seed034 development runs; not benchmark results or matched comparisons."
+  },
+  "modules": [
+    {
+      "id": "cognitive",
+      "name": "GPT-6 Astra · Task Planner",
+      "label": "可复用的视觉理解与短期意图",
+      "state": "Case7 外部原型已接通 · 跨任务待验证",
+      "inputs": "任务、合法图像／本体状态、实际回执与待处理事件",
+      "outputs": "可见事实、未知项、短期意图与授权修订",
+      "body": "形成可复用的任务依据，按生命周期、固定事件或 Jev 升级请求更新；当前仍保留巡检和放置后更新。",
+      "boundary": "按需更新收益待测；在线会话与离线 Critic 分开，Cognitive 不代写 Jev 的局内动作记忆。"
+    },
+    {
+      "id": "tools",
+      "name": "Visual Perception & Execution Tools",
+      "label": "局部证据与连续控制",
+      "state": "Case7 外部原型已接通 · 工具覆盖有限",
+      "inputs": "当前授权目标与环境允许的观察",
+      "outputs": "区域报告、操作几何、实际执行回执与不确定性",
+      "body": "按请求更新局部证据；完成有限抓取或放置的连续控制，不逐运动阶段请求模型。",
+      "boundary": "历史 Case7 使用授权 RGB-D；RoboDojo 仅 RGB／本体及主动请求的 RGB 推断工具。"
+    },
+    {
+      "id": "compiler",
+      "name": "Evidence-Grounded State Compiler",
+      "label": "可审计的交接",
+      "state": "Case7 编码已有验证 · 选择质量影响待测",
+      "inputs": "契约、SceneState、回执、记忆与候选引用",
+      "outputs": "紧凑 DecisionPacket",
+      "body": "当前意图与最新区域卡片直接提供；旧报告、完整轮廓和诊断按需读取，保留来源与未知项。",
+      "boundary": "详情遵守访问窗口；精简字节数不等于节省费用或改善任务表现。"
+    },
+    {
+      "id": "registry",
+      "name": "Candidate Registry",
+      "label": "完整候选绑定",
+      "state": "Case7 工具绑定已实现 · 通用注册表待验证",
+      "inputs": "授权工具、技能模板、感知结果与允许的变换",
+      "outputs": "不可变 ID → 工具＋完整输入绑定",
+      "body": "按接口、授权和可用输入生成候选；普通动作一次选择，详情查询单独分级。昂贵计算在工具被选中后启动。",
+      "boundary": "候选覆盖限制模型能力；几何失败门控等额外干预必须在对照中披露。"
+    },
+    {
+      "id": "reactive",
+      "name": "Jev · Candidate Selector",
+      "label": "动作、信息获取与升级选择",
+      "state": "Case7 外部原型已接通 · 对照收益待测",
+      "inputs": "文本 DecisionPacket 与预定义候选 criteria",
+      "outputs": "已绑定工具请求、补观察、详情／记忆操作或升级",
+      "body": "结合当前报告和新回执决定继续执行、补信息或请求重规划；只在有新事件时选择。",
+      "boundary": "不直接看 RGB，不生成任意控制；相比 Astra 或规则是否更划算仍需验证。"
+    },
+    {
+      "id": "runtime",
+      "name": "Guarded Execution Runtime",
+      "label": "唯一物理执行入口",
+      "state": "Case7 生命周期已运行 · 跨任务适配待验证",
+      "inputs": "候选 ID、注册表、当前授权和新事件",
+      "outputs": "动作派发、回执、停止或拒绝",
+      "body": "保留在途事件，合并唤醒；派发前检查授权与动作所有权，撤销后等待物理取消确认。",
+      "boundary": "不以终局评分指导在线恢复；语义判断属于 Agent，执行协议由 Runtime 管理。"
+    },
+    {
+      "id": "memory",
+      "name": "Bounded Working Memory",
+      "label": "Jev 主动管理的局内动作记录",
+      "state": "接口已实现 · 当前开发局未使用",
+      "inputs": "Jev 当前可访问的动作回执与当时可见依据",
+      "outputs": "固定字段 ActionMemory、索引及显式读取正文",
+      "body": "Jev 选择保存、读取或删除；程序记录来源、参数、进度、终态与错误，最多 32 条／32 KiB。",
+      "boundary": "局内记忆仍由 Jev 主动管理并每局清空；跨局已验证经验属于待接入的 RSI 版本库。"
+    },
+    {
+      "id": "router",
+      "name": "Feedback-Driven Cognitive Updates",
+      "label": "按反馈分配认知更新",
+      "state": "混合触发已运行 · 按需调度收益待测",
+      "inputs": "执行事件、最新证据、授权、Jev 请求与预算",
+      "outputs": "等待事件／局部决策／请求 Cognitive／终止",
+      "body": "研究可复用的目标与易变化的执行证据如何分工；固定现有混合触发，单独比较按需更新。",
+      "boundary": "目标是成功能力、成本和完成时间的取舍，不预设调用更少必然更快。"
+    },
+    {
+      "id": "rsi",
+      "name": "RSI · Critic & Versioned Improvement",
+      "label": "局间改进与独立验证",
+      "state": "近期实现重点 · 尚未接入 Jev 闭环",
+      "inputs": "已结束开发局的合法记录、当前策略版本与改进预算",
+      "outputs": "带来源的经验／策略候选、验证报告与新快照或回退",
+      "body": "动作 RSI 只改进工具使用经验：Runtime 固定提取短 ActionSlice，离线 Critic 分批归因并生成经验卡；在线 Jev 只读少量摘要，详情按需读取，验证后随 PolicySnapshot 发布。",
+      "boundary": "Jev 不携带完整回放或低层轨迹；每局固定快照，经验按角色／工具／版本兼容性限量注入，不修改观察权限、评分器或 Runtime 授权边界。"
+    }
+  ],
+  "states": {
+    "ongoing": {
+      "label": "动作仍在执行",
+      "title": "保留授权，等待实际事件",
+      "cognitive": "保留当前有效授权；独立的认知触发仍可更新后续计划。",
+      "reactive": "无新事件时等待，不反复询问“继续”。",
+      "runtime": "执行工具负责动作内部控制，Runtime 收集终态和新事件。",
+      "evidence": "Case7 已按事件运行；相对其他调度的成本与时延收益尚未隔离验证。"
+    },
+    "unknown": {
+      "label": "感知已过期",
+      "title": "刷新证据，再构造决策",
+      "cognitive": "Jev 升级或既有认知触发到达时，获取新帧并更新理解。",
+      "reactive": "可选择补观察、检查或升级；不把旧报告当作新证据。",
+      "runtime": "提供合法候选与来源状态，执行所选工具并返回实际结果。",
+      "evidence": "局部证据不足不等于必须全局重规划；如何选择仍需比较。"
+    },
+    "revoked": {
+      "label": "子目标冲突",
+      "title": "升级 Astra，并等待旧执行取消确认",
+      "cognitive": "修订子目标，发布新的授权版本。",
+      "reactive": "候选不足或冲突时选择升级；旧版本响应不得执行。",
+      "runtime": "停止后续派发，收到取消确认后再交接。",
+      "evidence": "Case7 已有版本与取消接口；通用任务覆盖与升级收益仍需验证。"
+    },
+    "budget": {
+      "label": "预算不足",
+      "title": "保留未完成状态，显式停止",
+      "cognitive": "必要信息无法在剩余预算内取得时，返回未完成与原因。",
+      "reactive": "不为降低费用而选择缺乏证据的动作。",
+      "runtime": "记录累计成本和终止原因，保留失败及升级费用。",
+      "evidence": "成功 episode 为零时成本 / 成功数未定义，不填零。"
+    }
+  },
+  "alignment": [
+    [
+      "Task-Level Reasoning",
+      "Astra + 契约 + 任务事实",
+      "任务拆解与进度维护",
+      "目标、顺序、依赖是否正确"
+    ],
+    [
+      "Constraint-Aware Execution",
+      "感知 + 候选绑定 + Runtime",
+      "时机、参数与接触约束",
+      "残差、有效动作与过期拒绝"
+    ],
+    [
+      "Reasoning–Acting Coordination",
+      "State Compiler + Jev harness + Router",
+      "结果驱动后续选择",
+      "错误推进、恢复与升级成本"
+    ]
+  ],
+  "figures": [
+    {
+      "id": "architecture",
+      "path": "figures/architecture.svg",
+      "title": "Astra–Jev：带证据的结构化交接",
+      "description": "方法分工：Cognitive 提供可复用意图，Jev 选择动作、信息或升级，视觉工具负责连续控制；通用收益待验证。"
+    },
+    {
+      "id": "memory",
+      "path": "figures/packet-memory.svg",
+      "title": "DecisionPacket：当前依据、近期事件与主动记忆",
+      "description": "当前报告与计划、最近工具交互、显式读取的动作记忆进入决策输入；Jev 决定保存／读／删，程序固定编码。"
+    },
+    {
+      "id": "routing",
+      "path": "figures/routing.svg",
+      "title": "基于执行反馈的认知更新",
+      "description": "当前执行等待事件，Jev 选择局部动作、补证据或升级；现有固定认知触发与完全按需方案需分别比较。"
+    }
+  ],
+  "sources": [
+    {
+      "id": "state",
+      "title": "TypeSafe · State",
+      "url": "https://docs.typesafe.ai/concepts/state",
+      "description": "文本状态与每请求上下文；图片不是 Jev 输入。"
+    },
+    {
+      "id": "choice",
+      "title": "TypeSafe · Choice",
+      "url": "https://docs.typesafe.ai/primitives/choice",
+      "description": "从声明的候选中选择；不代替连续动作参数生成。"
+    },
+    {
+      "id": "models",
+      "title": "TypeSafe · Models",
+      "url": "https://docs.typesafe.ai/models",
+      "description": "运行前复核版本、限制与计费；本提案不预设实时性或价格优势。"
+    },
+    {
+      "id": "confidence",
+      "title": "TypeSafe · Confidence",
+      "url": "https://docs.typesafe.ai/confidence",
+      "description": "阈值需开发集验证；不把置信度当作物理成功证据。"
+    },
+    {
+      "id": "baseline",
+      "title": "EvoMemHarness · 参考实现快照",
+      "url": "https://github.com/MuQY1818/mem-planner-harness/tree/6d3c53eab6adcdfc7b7c4fdda7c9dba5d4fcce41",
+      "description": "授权、执行生命周期及 Record–Critic–经验候选–验证发布的参考基础；当前 Jev RSI 需重新适配。"
+    },
+    {
+      "id": "style",
+      "title": "RoboICL · 叙事与图文参考",
+      "url": "https://mosi-ai.github.io/RoboICL-GPT6-Astra.github.io/",
+      "description": "仅参考页面组织形式；不沿用其算法主张或实验结果。"
+    },
+    {
+      "id": "case7",
+      "title": "Case7 · 历史开发证据",
+      "url": "data/research/case7_development_evidence_20260924.json",
+      "description": "同一 seed034 的开发计数、离线评分摘要和来源哈希；不是 World 正式成绩或比较优势。"
+    }
+  ],
+  "examples": {
+    "decision-packet": {
+      "example_only": true,
+      "request_id": "illustration-request-01",
+      "goal_id": "fill-plate-a",
+      "contract_version": 3,
+      "evidence_version": "obs-12",
+      "memory": {
+        "index": [],
+        "recent_events": [
+          {
+            "action_ref": "a-02",
+            "status": "completed",
+            "effect": "unknown",
+            "source_ref": "obs-12"
+          }
+        ],
+        "read_records": [],
+        "write_policy": "Jev selects save(action_ref); deterministic encoding; no automatic summary.",
+        "capacity": {
+          "records": 32,
+          "body_bytes": 32768
+        }
+      },
+      "valid_candidates": [
+        {
+          "id": "refresh",
+          "description": "Request the already-authorized perception refresh.",
+          "bound_request_id": "tool-refresh-01"
+        },
+        {
+          "id": "escalate",
+          "description": "Ask Astra to resolve target binding or revise the subgoal.",
+          "bound_request_id": "upstream-review-01"
+        },
+        {
+          "id": "abstain",
+          "description": "Do not dispatch motion; report insufficient evidence.",
+          "bound_request_id": "hold-01"
+        }
+      ],
+      "motion_binding": "unavailable; camera-to-control transform unknown",
+      "selected_id": null,
+      "cognitive_context": {
+        "report_ref": "obs-12",
+        "author": "Cognitive",
+        "task_fact": "Plate A still needs fries; grasp outcome is unknown.",
+        "effect_status": "No confirmed deposit; command completion is not task success."
+      }
+    },
+    "jev-request": {
+      "model": "<fixed-version-at-run-time>",
+      "state": {
+        "example_only": true,
+        "request_id": "illustration-request-01",
+        "goal_id": "fill-plate-a",
+        "contract_version": 3,
+        "evidence_version": "obs-12",
+        "memory": {
+          "index": [],
+          "recent_events": [
+            {
+              "action_ref": "a-02",
+              "status": "completed",
+              "effect": "unknown",
+              "source_ref": "obs-12"
+            }
+          ],
+          "read_records": [],
+          "write_policy": "Jev selects save(action_ref); deterministic encoding; no automatic summary.",
+          "capacity": {
+            "records": 32,
+            "body_bytes": 32768
+          }
+        },
+        "valid_candidates": [
+          {
+            "id": "refresh",
+            "description": "Request the already-authorized perception refresh.",
+            "bound_request_id": "tool-refresh-01"
+          },
+          {
+            "id": "escalate",
+            "description": "Ask Astra to resolve target binding or revise the subgoal.",
+            "bound_request_id": "upstream-review-01"
+          },
+          {
+            "id": "abstain",
+            "description": "Do not dispatch motion; report insufficient evidence.",
+            "bound_request_id": "hold-01"
+          }
+        ],
+        "motion_binding": "unavailable; camera-to-control transform unknown",
+        "selected_id": null,
+        "cognitive_context": {
+          "report_ref": "obs-12",
+          "author": "Cognitive",
+          "task_fact": "Plate A still needs fries; grasp outcome is unknown.",
+          "effect_status": "No confirmed deposit; command completion is not task success."
+        }
+      },
+      "questions": {
+        "next_candidate": {
+          "type": "choice",
+          "instructions": "Choose one supplied candidate. Do not infer unobserved geometry or success.",
+          "criteria": {
+            "refresh": "Request the already-authorized perception refresh.",
+            "escalate": "Ask Astra to resolve target binding or revise the subgoal.",
+            "abstain": "Do not dispatch motion; report insufficient evidence."
+          }
+        }
+      }
+    },
+    "scene-state": {
+      "example_only": true,
+      "observation_id": "obs-12",
+      "facts": [
+        {
+          "entity_id": "food-04",
+          "attribute": "identity",
+          "value": "fries",
+          "source_tool": "semantic_perception",
+          "source_observation": "obs-12",
+          "status": "inferred"
+        },
+        {
+          "entity_id": "food-04",
+          "attribute": "position",
+          "value": null,
+          "coordinate_frame": "camera",
+          "base_transform_status": "unknown",
+          "validity": "unbound"
+        }
+      ],
+      "last_receipt": {
+        "action_id": "a-02",
+        "status": "completed"
+      },
+      "effect": {
+        "status": "unknown",
+        "evidence_refs": []
+      },
+      "note": "A completed command is not evidence of a successful grasp."
+    },
+    "subgoal-contract": {
+      "example_only": true,
+      "episode_id": "illustration-cp01",
+      "goal_id": "fill-plate-a",
+      "contract_version": 3,
+      "objective": "Place the required food in plate A; count only evidence-supported deposits.",
+      "preconditions": [
+        "correct food identity",
+        "fresh evidence before motion"
+      ],
+      "allowed_tools": [
+        "observe",
+        "perceive",
+        "execute_registered_candidate"
+      ],
+      "completion_conditions": [
+        "required items stably in plate A"
+      ],
+      "budget": {
+        "max_calls": "configured before run",
+        "remaining_usd": null
+      },
+      "on_conflict": "request_astra_revision"
+    }
+  }
+}

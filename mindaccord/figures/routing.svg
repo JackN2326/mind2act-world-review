@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 760" width="1480" height="760" font-family="Arial, sans-serif">
+  <rect width="1480" height="760" fill="#FFFFFF"/>
+  <defs>
+    <marker id="arrow-default" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#555555"/>
+    </marker>
+    <marker id="arrow-c0" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#2563EB"/>
+    </marker>
+    <marker id="arrow-c1" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#10B981"/>
+    </marker>
+    <marker id="arrow-c2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#7C3AED"/>
+    </marker>
+    <marker id="arrow-c3" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#EA580C"/>
+    </marker>
+    <marker id="arrow-c4" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#C62828"/>
+    </marker>
+    <marker id="arrow-c5" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#0D47A1"/>
+    </marker>
+    <marker id="arrow-c6" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#1B5E20"/>
+    </marker>
+    <marker id="arrow-c7" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#4A148C"/>
+    </marker>
+    <marker id="arrow-c8" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#BF360C"/>
+    </marker>
+    <marker id="arrow-c9" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#37474F"/>
+    </marker>
+  </defs>
+  <path d="M 598.3,225.0 L 371.7,305.0" stroke="#496575" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 740.0,225.0 L 740.0,305.0" stroke="#496575" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 881.7,225.0 L 1108.3,305.0" stroke="#496575" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 679.1,405.0 L 520.9,535.0" stroke="#496575" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <rect x="499.1" y="452.0" width="201.8" height="16" fill="#FFFFFF" rx="3" opacity="0.85"/>
+  <text x="600.0" y="464.0" font-size="17" fill="#777777" text-anchor="middle">escalation selected</text>
+  <path d="M 1206.5,405.0 L 1093.5,535.0" stroke="#496575" stroke-width="2" fill="none" marker-end="url(#arrow-default)" stroke-dasharray="8,4"/>
+  <rect x="1064.4" y="452.0" width="171.2" height="16" fill="#FFFFFF" rx="3" opacity="0.85"/>
+  <text x="1150.0" y="464.0" font-size="17" fill="#777777" text-anchor="middle">budget exhausted</text>
+  <rect x="575.0" y="125.0" width="330.0" height="100.0" fill="#EDF5F4" stroke="#19655B" stroke-width="2" rx="8"/>
+  <text x="740.0" y="182.3" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">New receipt / report</text>
+  <rect x="35.0" y="305.0" width="390.0" height="100.0" fill="#EDF5F4" stroke="#19655B" stroke-width="2" rx="8"/>
+  <text x="230.0" y="339.4" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">Motion active</text>
+  <text x="230.0" y="362.4" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">No new decision needed</text>
+  <text x="230.0" y="385.4" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">Tool continues; wait for event</text>
+  <rect x="545.0" y="305.0" width="390.0" height="100.0" fill="#EFF4FA" stroke="#426D98" stroke-width="2" rx="8"/>
+  <text x="740.0" y="350.9" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">Local evidence insufficient</text>
+  <text x="740.0" y="373.9" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">Jev may request an observation</text>
+  <rect x="1055.0" y="305.0" width="390.0" height="100.0" fill="#EDF5F4" stroke="#19655B" stroke-width="2" rx="8"/>
+  <text x="1250.0" y="350.9" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">Current intent still applicable</text>
+  <text x="1250.0" y="373.9" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">Jev may select a bound tool</text>
+  <rect x="200.0" y="535.0" width="520.0" height="100.0" fill="#FFF4EB" stroke="#9F6634" stroke-width="2" rx="8"/>
+  <text x="460.0" y="580.9" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">Unresolved binding or changed plan</text>
+  <text x="460.0" y="603.9" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">Jev may request Cognitive update</text>
+  <rect x="795.0" y="535.0" width="510.0" height="100.0" fill="#FAEFEF" stroke="#9E5555" stroke-width="2" rx="8"/>
+  <text x="1050.0" y="580.9" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">Configured budget exhausted</text>
+  <text x="1050.0" y="603.9" font-size="21" fill="#333333" text-anchor="middle" font-weight="bold">Record incomplete status</text>
+  <text x="740.0" y="56.0" font-size="32" fill="#193D3A" text-anchor="middle">Spend reasoning where it changes the next decision.</text>
+  <text x="740.0" y="105.0" font-size="20" fill="#193D3A" text-anchor="middle">Decision options, not automatic semantic routing; authorization is checked at dispatch.</text>
+  <text x="740.0" y="710.0" font-size="18" fill="#193D3A" text-anchor="middle">Current prototype also uses watchdog, post-place and plan-refill triggers; adaptive scheduling is unverified.</text>
+</svg>
